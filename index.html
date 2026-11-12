@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>유언장 주작단 - 공식 게임 소개 및 플레이 가이드</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: #0d0c0b;
+      color: #d8d2c7;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.65;
+    }
+
+    /* 상단 네비게이션 바 */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(13, 12, 11, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #332a22;
+      z-index: 1000;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #e6c594;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #a89f91;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #e6c594;
+    }
+
+    /* 히어로 섹션 (메인 타이틀) */
+    .hero {
+      padding: 150px 20px 100px;
+      text-align: center;
+      background: radial-gradient(circle at center, #2b211a 0%, #0d0c0b 75%);
+      border-bottom: 1px solid #29221c;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(211, 47, 47, 0.15);
+      border: 1px solid #d32f2f;
+      color: #ff6b6b;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      color: #f2dec0;
+      font-weight: 900;
+      letter-spacing: 4px;
+      margin-bottom: 16px;
+      text-shadow: 0 4px 25px rgba(230, 197, 148, 0.25);
+    }
+
+    .hero .tagline {
+      font-size: 1.3rem;
+      color: #b5a998;
+      max-width: 650px;
+      margin: 0 auto 35px;
+      font-weight: 400;
+    }
+
+    .hero-btns {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .btn-gold {
+      background: #c89d54;
+      color: #120f0c;
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-gold:hover {
+      background: #e6c594;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #e6c594;
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      border: 1px solid #5c4938;
+      transition: all 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: #e6c594;
+      background: rgba(230, 197, 148, 0.08);
+    }
+
+    /* 공통 컨테이너 & 섹션 제목 */
+    .container {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 85px 25px;
+    }
+
+    .section-header {
+      margin-bottom: 45px;
+      border-left: 4px solid #c89d54;
+      padding-left: 16px;
+    }
+
+    .section-header span {
+      display: block;
+      font-size: 0.85rem;
+      color: #c89d54;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+      color: #f5ece0;
+    }
+
+    /* 1. 세계관 및 개요 그리드 */
+    .story-box {
+      background: #171412;
+      border: 1px solid #2e2620;
+      border-radius: 10px;
+      padding: 35px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .story-text p {
+      margin-bottom: 15px;
+      color: #c4bcb0;
+      font-size: 1.05rem;
+    }
+
+    .meta-table {
+      background: #110f0d;
+      border: 1px solid #2b231d;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px dashed #2b231d;
+      font-size: 0.95rem;
+    }
+
+    .meta-row:last-child {
+      border-bottom: none;
+    }
+
+    .meta-label {
+      color: #8c8275;
+    }
+
+    .meta-val {
+      color: #e6c594;
+      font-weight: 700;
+    }
+
+    /* 2. 플레이 흐름 (5단계 스텝) */
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 50px;
+    }
+
+    .step-card {
+      background: #171412;
+      border: 1px solid #2e2620;
+      border-radius: 8px;
+      padding: 20px 15px;
+      text-align: center;
+      position: relative;
+    }
+
+    .step-num {
+      display: inline-block;
+      background: #33281e;
+      color: #e6c594;
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+      border-radius: 50%;
+      font-weight: 800;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+    }
+
+    .step-card h4 {
+      color: #f0e6d6;
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .step-card p {
+      font-size: 0.85rem;
+      color: #998f82;
+    }
+
+    /* 조작 & 태그 규칙 예시 박스 */
+    .mechanic-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .paper-card {
+      background: #efe5d1;
+      color: #26201a;
+      border-radius: 8px;
+      padding: 28px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .paper-card h3 {
+      border-bottom: 2px solid #8c7b65;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+      font-size: 1.25rem;
+    }
+
+    .example-sentence {
+      background: rgba(0, 0, 0, 0.06);
+      padding: 12px 15px;
+      border-radius: 6px;
+      margin: 12px 0;
+      font-family: 'Courier New', monospace;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .tag-pill {
+      display: inline-block;
+      background: #3b2f2f;
+      color: #f2dec0;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+
+    .tag-bad {
+      background: #b71c1c;
+      color: #fff;
+    }
+
+    /* 3. 위기 및 심박수 시스템 */
+    .crisis-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .crisis-card {
+      background: #171412;
+      border: 1px solid #362222;
+      border-top: 3px solid #d32f2f;
+      border-radius: 8px;
+      padding: 25px;
+    }
+
+    .crisis-card h3 {
+      color: #ff7979;
+      margin-bottom: 10px;
+      font-size: 1.15rem;
+    }
+
+    .crisis-card p {
+      color: #b0a699;
+      font-size: 0.95rem;
+    }
+
+    /* 4. 불법 장비 상점 도감 */
+    .item-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .item-card {
+      background: #171412;
+      border: 1px solid #2e2620;
+      border-radius: 8px;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .item-icon {
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+    }
+
+    .item-card h3 {
+      color: #e6c594;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .item-card p {
+      color: #a3998c;
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+    }
+
+    .item-price {
+      display: inline-block;
+      background: #241e19;
+      color: #c89d54;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: 1px solid #3d3228;
+    }
+
+    /* 5. 평가 등급 표 */
+    .grade-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .grade-box {
+      background: #171412;
+      border: 1px solid #2e2620;
+      border-radius: 8px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .stamp {
+      display: inline-block;
+      font-size: 2rem;
+      font-weight: 900;
+      padding: 4px 18px;
+      border: 3px solid;
+      border-radius: 6px;
+      transform: rotate(-6deg);
+      margin-bottom: 15px;
+    }
+
+    .stamp-s { color: #ffca28; border-color: #ffca28; }
+    .stamp-a { color: #66bb6a; border-color: #66bb6a; }
+    .stamp-f { color: #ef5350; border-color: #ef5350; }
+
+    /* 푸터 */
+    footer {
+      border-top: 1px solid #29221c;
+      background: #090807;
+      padding: 40px 20px;
+      text-align: center;
+      color: #786f64;
+      font-size: 0.9rem;
+    }
+
+    footer strong {
+      color: #b5a998;
+    }
+
+    /* 반응형 대응 */
+    @media (max-width: 850px) {
+      .story-box, .mechanic-grid, .crisis-grid, .item-grid, .grade-list {
+        grid-template-columns: 1fr;
+      }
+      .flow-steps {
+        grid-template-columns: 1fr 1fr;
+      }
+      .hero h1 {
+        font-size: 2.6rem;
+      }
+      header {
+        padding: 15px 20px;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 네비게이션 -->
+  <header>
+    <a href="#" class="nav-logo">📜 유언장 주작단</a>
+    <ul class="nav-links">
+      <li><a href="#overview">게임 개요</a></li>
+      <li><a href="#howtoplay">플레이 & 조작법</a></li>
+      <li><a href="#crisis">위기 & 심박수</a></li>
+      <li><a href="#items">아지트 & 장비</a></li>
+      <li><a href="#grades">평가 등급</a></li>
+    </ul>
+  </header>
+
+  <!-- 메인 히어로 영역 -->
+  <section class="hero">
+    <div class="badge">TEXT SWAP PUZZLE & REAL-TIME THRILLER</div>
+    <h1>유언장 주작단</h1>
+    <p class="tagline">"임종 직전 45초, 유언장 속 단어를 돌려막아 의뢰인을 위한 최고의 상속을 완수하라!"</p>
+    <div class="hero-btns">
+      <a href="#howtoplay" class="btn-gold">플레이 방법 보기</a>
+      <a href="#overview" class="btn-outline">세계관 & 기획 소개</a>
+    </div>
+  </section>
+
+  <!-- 1. 게임 개요 및 세계관 -->
+  <section id="overview" class="container">
+    <div class="section-header">
+      <span>01. PROJECT OVERVIEW</span>
+      <h2>게임 개요 및 세계관</h2>
+    </div>
+    <div class="story-box">
+      <div class="story-text">
+        <p>당신은 암흑가 뒷골목에서 비밀리에 활동하는 전설적인 전문 위조 조직 <strong>'유언장 주작단'</strong>의 에이스입니다[cite: 5].</p>
+        <p>억울하게 집안에서 쫓겨난 자식, 비자금을 노리는 정계 인사, 가문을 지키려는 충신까지—거액의 의뢰비를 들고 찾아온 의뢰인들을 위해 임종 직전 병실에 잠입하세요[cite: 5].</p>
+        <p>주어진 골든타임은 단 <strong>45초</strong>. 복도 너머로 다가오는 친척들과 간호사의 감시망을 피해 유언장의 핵심 단어 타일을 빼내고 재배치하여 완벽한 상속을 설계해야 합니다[cite: 5, 7, 9].</p>
+      </div>
+      <div class="meta-table">
+        <div class="meta-row">
+          <span class="meta-label">장르</span>
+          <span class="meta-val">텍스트 스왑 퍼즐 / 스릴러[cite: 5]</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">제한 시간</span>
+          <span class="meta-val">스테이지당 45초 타임어택</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">레퍼런스</span>
+          <span class="meta-val">Papers, Please / Orwell[cite: 10]</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">기획 & 제작</span>
+          <span class="meta-val">2024681007 김세희[cite: 5]</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 핵심 플레이 방법 및 규칙 -->
+  <section id="howtoplay" class="container">
+    <div class="section-header">
+      <span>02. HOW TO PLAY & MECHANICS</span>
+      <h2>게임 진행 순서 및 핵심 규칙</h2>
+    </div>
+
+    <!-- 5단계 진행 흐름 -->
+    <div class="flow-steps">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h4>의뢰 수락</h4>
+        <p>의뢰인의 목표 상속 조건과 타겟 자산을 확인합니다[cite: 5].</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h4>단어 스왑</h4>
+        <p>유언장 슬롯의 단어를 클릭해 내 카드 덱으로 빼냅니다[cite: 5, 7].</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h4>돌려막기</h4>
+        <p>의뢰인 카드를 빈칸에 넣고, 빼낸 단어는 다른 문장에 짬처리합니다[cite: 5].</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <h4>위기 대응</h4>
+        <p>발소리가 들리거나 심박수(BPM)가 치솟을 때 침착하게 대응합니다.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">5</div>
+        <h4>봉인 및 정산</h4>
+        <p>45초 안에 도장을 찍어 탈출하고 의뢰비로 장비를 강화합니다[cite: 5, 7, 9].</p>
+      </div>
+    </div>
+
+    <!-- 스왑 예시 & 태그 규칙 -->
+    <div class="mechanic-grid">
+      <div class="paper-card">
+        <h3>🔄 단어 스왑 & 돌려막기 예시</h3>
+        <p>유언장의 단어를 빼내면 플레이어의 덱으로 들어오며, 다른 문장의 빈자리와 서로 맞바꿀 수 있습니다[cite: 5].</p>
+        <div class="example-sentence">
+          [기존] 모든 주식을 <span class="tag-pill">[큰아들]</span>에게 상속한다[cite: 5].<br>
+          [기존] 빚 50억은 <span class="tag-pill">[둘째 아들]</span>이 책임진다[cite: 5].
+        </div>
+        <p>👉 <strong>[큰아들]</strong>을 빼낸 자리에 <span class="tag-pill">[첫째 손자(의뢰인)]</span>을 넣고, 손에 든 <strong>[큰아들]</strong>은 빚 문장으로 이동시켜 완벽하게 돌려막으세요[cite: 5]!</p>
+      </div>
+
+      <div class="paper-card">
+        <h3>🏷️ 태그 기반 문장 검증 규칙</h3>
+        <p>모든 단어 카드에는 고유 태그(인물, 기관, 부동산, 부채, 동물 등)가 부여되어 있어 문맥에 맞는 태그만 승인됩니다[cite: 5, 7].</p>
+        <div class="example-sentence">
+          「~에게 양도한다」 ➔ <span class="tag-pill">[인물]</span> OR <span class="tag-pill">[기관]</span> 필수[cite: 5]<br>
+          「~이 책임진다」 ➔ <span class="tag-pill">[인물]</span> 태그 필수[cite: 5]
+        </div>
+        <p>⚠️ 만약 양도 대상 칸에 동물 태그인 <span class="tag-pill tag-bad">[고양이]</span> 등을 넣으면 <strong>규칙 위반 경고와 함께 무효 처리</strong>됩니다[cite: 5, 7]!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 심박수(BPM) & 방해 시스템 -->
+  <section id="crisis" class="container">
+    <div class="section-header">
+      <span>03. REAL-TIME THRILLER SYSTEM</span>
+      <h2>실시간 심박수(BPM) 및 침입 방해 요소</h2>
+    </div>
+    <div class="crisis-grid">
+      <div class="crisis-card">
+        <h3>💓 실시간 심박수 (BPM)</h3>
+        <p>빠른 연속 조작이나 위기 상황이 발생하면 모니터의 BPM 수치가 급상승합니다[cite: 5, 9]. 심박수가 한계치를 넘으면 화면이 흔들리고 조작 지연 페널티가 발생합니다[cite: 5, 9].</p>
+      </div>
+      <div class="crisis-card">
+        <h3>👣 복도 발소리 (친척 & 간호사)</h3>
+        <p>병실 밖 복도에서 발소리가 가까워지면 경고 알림이 울립니다[cite: 5, 9]. 발각될 경우 그 즉시 현장 체포되어 미션이 실패(F등급)로 종료됩니다[cite: 5, 9].</p>
+      </div>
+      <div class="crisis-card">
+        <h3>⚡ 돌발 발작 이벤트</h3>
+        <p>병상의 할아버지가 이상 증세를 보이면 남은 제한 시간이 평소보다 빠르게 줄어들어 극한의 긴장감을 유발합니다[cite: 5].</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 아지트 & 불법 장비 -->
+  <section id="items" class="container">
+    <div class="section-header">
+      <span>04. HIDEOUT & ILLEGAL GEAR</span>
+      <h2>지하 밀실 아지트 & 불법 장비 상점</h2>
+    </div>
+    <p style="color: #a89f91; margin-bottom: 25px;">의뢰를 완수하고 정산받은 블랙 머니로 지하 아지트의 특수 장비를 구매해 다음 작전의 성공률을 높이세요[cite: 5, 9].</p>
+    <div class="item-grid">
+      <div class="item-card">
+        <div>
+          <div class="item-icon">🔇</div>
+          <h3>소음 방지 스티커</h3>
+          <p>병실 문틈에 부착해 친척과 간호사의 발소리 접근 타이밍을 5초 이상 지연시켜 여유 시간을 확보합니다[cite: 5, 9].</p>
+        </div>
+        <div><span class="item-price">30,000 KRW[cite: 9]</span></div>
+      </div>
+      <div class="item-card">
+        <div>
+          <div class="item-icon">💮</div>
+          <h3>만능 위조 도장</h3>
+          <p>어떠한 부적합 태그 단어를 넣더라도 공증 규칙 오류를 1회 완벽하게 무효화하고 통과시킵니다[cite: 5, 9].</p>
+        </div>
+        <div><span class="item-price">150,000 KRW[cite: 9]</span></div>
+      </div>
+      <div class="item-card">
+        <div>
+          <div class="item-icon">💉</div>
+          <h3>신경 안정제</h3>
+          <p>작전 투입 전 투여하여 초기 심박수(BPM)를 낮추고, 위기 상황에서도 화면 흔들림을 억제합니다[cite: 5, 9].</p>
+        </div>
+        <div><span class="item-price">80,000 KRW[cite: 9]</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 결과 정산 및 평가 등급 -->
+  <section id="grades" class="container">
+    <div class="section-header">
+      <span>05. EVALUATION & REWARDS</span>
+      <h2>미션 정산 및 평가 등급 기준</h2>
+    </div>
+    <div class="grade-list">
+      <div class="grade-box">
+        <div class="stamp stamp-s">S급</div>
+        <h4 style="color:#f5ece0; margin-bottom:8px;">완벽한 위조[cite: 5]</h4>
+        <p style="font-size:0.9rem; color:#a3998c;">제한 시간 내 오차율 0%로 의뢰 조건 완벽 달성[cite: 5]. 거액의 보너스 수수료와 암흑가 명성 대폭 상승[cite: 5].</p>
+      </div>
+      <div class="grade-box">
+        <div class="stamp stamp-a">A~B급</div>
+        <h4 style="color:#f5ece0; margin-bottom:8px;">턱걸이 위조[cite: 5]</h4>
+        <p style="font-size:0.9rem; color:#a3998c;">핵심 목표는 달성했으나 잔여 시간이 촉박하거나 일부 문장 정리가 미흡한 경우[cite: 5]. 기본 의뢰비 수령[cite: 5].</p>
+      </div>
+      <div class="grade-box">
+        <div class="stamp stamp-f">F급</div>
+        <h4 style="color:#f5ece0; margin-bottom:8px;">발각 및 규칙 위반[cite: 5]</h4>
+        <p style="font-size:0.9rem; color:#a3998c;">45초 초과, 태그 규칙 위반, 또는 친척 침입 시 발각[cite: 5, 9]. 현장 체포 및 아지트 자금 일부 차압[cite: 5].</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 하단 푸터 -->
+  <footer>
+    <p><strong>《유언장 주작단》</strong> — AI응용게임기획및프로그래밍 프로젝트 소개 페이지[cite: 5, 11]</p>
+    <p style="margin-top: 6px;">Designed & Planned by 2024681007 김세희[cite: 5, 11]</p>
+  </footer>
+
+</body>
+</html>
