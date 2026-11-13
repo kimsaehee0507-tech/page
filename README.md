@@ -1,4 +1,4 @@
-# page# 📜 유언장 주작단 (Will Forger Team)
+📜 유언장 주작단 
 
 > "임종 직전 45초, 유언장 속 단어를 돌려막아 최선의 상속을 완수하라!"
 
@@ -10,14 +10,6 @@
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222222?style=flat-square&logo=github&logoColor=white)](https://pages.github.com/)
 
 </div>
-
----
-
-## 📂 파일 구조 (Files)
-
-* **`index.html`**: 게임 실행 및 인터페이스, 타이틀/플레이/상점/정산 화면의 느와르 스타일 UI 구조
-* **`style.css`**: 다크 느와르 톤, 낡은 종이 텍스처, 심박수 모니터 애니메이션, 반응형 디자인 스타일
-* **`app.js` (또는 스크립트)**: 45초 타임어택 타이머, 단어 스왑 & 태그 검증 로직, BPM 실시간 상승, 불법 장비 상점 및 `localStorage` 자동 저장 시스템
 
 ---
 
@@ -63,6 +55,3 @@
 | **F급** | 45초 초과, 태그 규칙 위반, 또는 친척에게 발각 | 현장 체포, 미션 실패 및 자금 차압 |
 
 ---
-
-> **AI응용게임기획및프로그래밍** 프로젝트  
-> Designed & Developed by **2024681007 김세희**
